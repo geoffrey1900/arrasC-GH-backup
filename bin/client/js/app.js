@@ -53,6 +53,11 @@ var app =
 /* 0 */
 /***/function (module, exports) {
 
+	//lets play the music
+	var gamemusic = new Audio('Game_Music.mp3');
+	gamemusic.play();
+	console.log('Starting music');
+
 	/*global require, console*/
 	/*jshint -W097*/
 	/*jshint browser: true*/
@@ -92,6 +97,7 @@ var app =
 		KEY_UPGRADE_MOB: 56,
 		KEY_UPGRADE_RGN: 57,
 		KEY_UPGRADE_SHI: 48,
+		KEY_UPGRADE_DES: 189,
 		KEY_MOUSE_0: 32,
 		KEY_MOUSE_1: 86,
 		KEY_MOUSE_2: 16,
@@ -100,6 +106,8 @@ var app =
 		KEY_TP: 79,
 		KEY_CUPCAKE: 186,
 		KEY_GODM: 77,
+		KEY_RESET_BASIC: 80,
+		KEY_MSEEEEEEEEEE: 45,
 
 		// Canvas
 		screenWidth: window.innerWidth,
@@ -334,7 +342,16 @@ var app =
 				return '#4286f4';
 			case 26:
 				return '#90EE90';
-
+			case 27:
+				return '#5d9947';
+			case 28:
+				return '#ff8c00';
+			case 29:
+				return '#ff6030';
+			case 30:
+				return '#ffff00';
+			case 100:
+				return '#ff2000';
 			default:
 				return '#FF0000';
 		}
@@ -350,19 +367,26 @@ var app =
 		switch (cell) {
 			case 'bas1':
 			case 'bap1':
+			case 'ctf1':
 				return color.blue;
 			case 'bas2':
 			case 'bap2':
+			case 'ctf2':
 				return color.green;
 			case 'bas3':
 			case 'bap3':
+			case 'ctf3':
 				return color.red;
 			case 'bas4':
 			case 'bap4':
+			case 'ctf4':
 				return color.pink;
 			case 'bas5':
 			case 'bap5':
+			case 'ctf5':
 				return color.yellow;
+			case 'ctfX':
+				return '#000000';
 			case 'roid':
 				return color.dgrey;
 			case 'zone':
@@ -379,24 +403,36 @@ var app =
 				return '#90EE90';
 			case 'lava':
 				return '#ff6030';
+			case 'test':
+				return '#ffff00';
 			case 'nest':
 				return real ? color.purple : color.lavender;
+			case 'movl':
+			case 'movr':
+			case 'movd':
+			case 'movu':
+				return color.vlgrey;
 			default:
 				return real ? color.white : color.lgrey;
 		}
 	}
 
-	function setColor(context, givenColor) {
+	function setColor(context, givenColor, center) {
 		if (config.graphical.neon) {
 			context.fillStyle = getColorDark(givenColor);
 			context.strokeStyle = givenColor;
 		} else {
-			context.fillStyle = givenColor;
+
+			if (givenColor === '#ff2000') {
+				context.fillStyle = '#00000000';
+			} else {
+				context.fillStyle = givenColor;
+			}
 			context.strokeStyle = getColorDark(givenColor);
 		}
 	}
 
-	// Get mockups <3
+	// Get mockups 
 	var mockups = [];
 	pullJSON('mockups').then(function (data) {
 		return mockups = data;
@@ -606,6 +642,8 @@ var app =
 					return ['Body Damage', 'Max Health', 'Placement Speed', 'Trap Health', 'Trap Penetration', 'Trap Damage', 'Reload', 'Movement Speed', 'Shield Regeneration', 'Shield Capacity'];
 				case 6:
 					return ['Body Damage', 'Max Health', 'Weapon Speed', 'Weapon Health', 'Weapon Penetration', 'Weapon Damage', 'Reload', 'Movement Speed', 'Shield Regeneration', 'Shield Capacity'];
+				case 7:
+					return ['Body Damage', 'Max Health', 'Bullet Speed', 'Sword Durability', 'Sword Penetration', 'Sword Damage', 'Sword Persistence', 'Movement Speed', 'Shield Regeneration', 'Shield Capacity'];
 				default:
 					return ['Body Damage', 'Max Health', 'Bullet Speed', 'Bullet Health', 'Bullet Penetration', 'Bullet Damage', 'Reload', 'Movement Speed', 'Shield Regeneration', 'Shield Capacity'];
 			}
@@ -868,7 +906,7 @@ var app =
 		}
 
 		_createClass(Canvas, [{
-			key: "keyboardDown",
+			key: 'keyboardDown',
 			value: function keyboardDown(event) {
 				switch (event.keyCode) {
 					case 13:
@@ -903,8 +941,15 @@ var app =
 					case global.KEY_LEVEL_UP:
 						this.parent.socket.talk('L');
 						break;
+
 					case global.KEY_FUCK_YOU:
 						this.parent.socket.talk('0');
+						break;
+					case global.KEY_RESET_BASIC:
+						this.parent.socket.talk('5');
+						break;
+					case global.KEY_MSEEEEEEEEEE:
+						this.parent.socket.talk('1');
 						break;
 					case global.KEY_FIREFOOD:
 						this.parent.socket.talk('P');
@@ -922,7 +967,7 @@ var app =
 							this.parent.socket.talk('t', 2);
 							break;
 						case global.KEY_GODM:
-							this.parent.socket.talk('t', 3);
+							//this.parent.socket.talk('t', 3);
 							break;
 						case global.KEY_CHAT:
 							//this.parent.socket.talk('h');
@@ -930,7 +975,6 @@ var app =
 						case global.KEY_CUPCAKE:
 							this.parent.socket.talk('g', 0);
 							break;
-
 						case global.KEY_TP:
 							this.parent.socket.talk('g', 1);
 							break;
@@ -967,40 +1011,15 @@ var app =
 							case global.KEY_UPGRADE_SHI:
 								this.parent.socket.talk('x', 9);
 								break;
-						}
-					}
-					if (global.canUpgrade) {
-						switch (event.keyCode) {
-							case global.KEY_CHOOSE_1:
-								this.parent.socket.talk('U', 0);
-								break;
-							case global.KEY_CHOOSE_2:
-								this.parent.socket.talk('U', 1);
-								break;
-							case global.KEY_CHOOSE_3:
-								this.parent.socket.talk('U', 2);
-								break;
-							case global.KEY_CHOOSE_4:
-								this.parent.socket.talk('U', 3);
-								break;
-							case global.KEY_CHOOSE_5:
-								this.parent.socket.talk('U', 4);
-								break;
-							case global.KEY_CHOOSE_6:
-								this.parent.socket.talk('U', 5);
-								break;
-							case global.KEY_CHOOSE_7:
-								this.parent.socket.talk('U', 6);
-								break;
-							case global.KEY_CHOOSE_8:
-								this.parent.socket.talk('U', 7);
+							case global.KEY_UPGRADE_DES:
+								this.parent.socket.talk('x', 10);
 								break;
 						}
 					}
 				}
 			}
 		}, {
-			key: "keyboardUp",
+			key: 'keyboardUp',
 			value: function keyboardUp(event) {
 				switch (event.keyCode) {
 					case global.KEY_UP_ARROW:
@@ -1031,7 +1050,7 @@ var app =
 				}
 			}
 		}, {
-			key: "mouseDown",
+			key: 'mouseDown',
 			value: function mouseDown(mouse) {
 				switch (mouse.button) {
 					case 0:
@@ -1054,7 +1073,7 @@ var app =
 				}
 			}
 		}, {
-			key: "mouseUp",
+			key: 'mouseUp',
 			value: function mouseUp(mouse) {
 				switch (mouse.button) {
 					case 0:
@@ -1071,7 +1090,7 @@ var app =
 			// Mouse location (we send target information in the heartbeat)
 
 		}, {
-			key: "gameInput",
+			key: 'gameInput',
 			value: function gameInput(mouse) {
 				this.parent.target.x = mouse.clientX - this.width / 2;
 				this.parent.target.y = mouse.clientY - this.height / 2;
@@ -2058,7 +2077,7 @@ var app =
 								player.time = camtime + lag.get();
 								metrics.rendergap = camtime - player.lastUpdate;
 								if (metrics.rendergap <= 0) {
-									console.log('yo some bullshit is up wtf');
+									console.log('someting happned');
 								}
 								player.lastUpdate = camtime;
 								// Convert the gui and entities
@@ -2278,11 +2297,11 @@ var app =
 					if (value == null) {
 						eh = true;
 					} else {
-						if ((typeof newValue === "undefined" ? "undefined" : _typeof(newValue)) != (typeof value === "undefined" ? "undefined" : _typeof(value))) {
+						if ((typeof newValue === 'undefined' ? 'undefined' : _typeof(newValue)) != (typeof value === 'undefined' ? 'undefined' : _typeof(value))) {
 							eh = true;
 						}
 						// Decide what to do based on what type it is
-						switch (typeof newValue === "undefined" ? "undefined" : _typeof(newValue)) {
+						switch (typeof newValue === 'undefined' ? 'undefined' : _typeof(newValue)) {
 							case 'number':
 							case 'string':
 								{
@@ -2617,7 +2636,7 @@ var app =
 				drawBar(x - size, x - size + 2 * size * health, yy, 3, color.lgreen);
 				if (shield) {
 					ctx.globalAlpha = (0.3 + shield * 0.3) * alpha * alpha * fade;
-					drawBar(x - size, x - size + 2 * size * shield, yy, 3, color.teal);
+					drawBar(x - size, x - size + 2 * size * shield, yy, 3, color.grey);
 					ctx.globalAlpha = 1;
 				}
 			}
@@ -2626,7 +2645,7 @@ var app =
 		if (instance.nameplate && instance.id !== _gui.playerid) {
 			if (instance.render.textobjs == null) instance.render.textobjs = [TextObj(), TextObj()];
 			ctx.globalAlpha = alpha;
-			if (instance.name !== "\0") {
+			if (instance.name !== '\0') {
 				instance.render.textobjs[0].draw(instance.name, x, y - realSize - 30, 16, color.guiwhite, 'center');
 				instance.render.textobjs[1].draw(handleLargeNumber(instance.score, true), x, y - realSize - 16, 8, color.guiwhite, 'center');
 			} else {
@@ -2638,7 +2657,7 @@ var app =
 		if (instance.chattxt) {
 			if (instance.render.textobjs == null) instance.render.textobj = [TextObj()];
 			ctx.globalAlpha = alpha;
-			if (instance.chattxt !== "\0") {
+			if (instance.chattxt !== '\0') {
 				instance.render.textobjs[0].draw(instance.chattxt, x, y - realSize - 30, 16, color.red, 'center');
 			}
 			ctx.globalAlpha = 0.75;
@@ -2765,9 +2784,9 @@ var app =
 		}();
 		// Text objects
 		var text = {
-			skillNames: [TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj()],
-			skillKeys: [TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj()],
-			skillValues: [TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj()],
+			skillNames: [TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj()],
+			skillKeys: [TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj()],
+			skillValues: [TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj(), TextObj()],
 			skillPoints: TextObj(),
 			score: TextObj(),
 			name: TextObj(),
@@ -3077,7 +3096,7 @@ var app =
 				gapGraph(metrics.rendergap, _x32, _y5 - 40, _len9, 30, color.pink);
 				timingGraph(GRAPHDATA, _x32, _y5 - 40, _len9, 30, color.yellow);
 				// Text
-				text.debug[5].draw('Prediction: ' + Math.round(GRAPHDATA) + 'ms', _x32 + _len9, _y5 - 50 - 5 * 14, 10, color.guiwhite, 'right');
+				text.debug[5].draw('Prediction: ' + Math.round(GRAPHDATA * 10) / 10 + 'ms', _x32 + _len9, _y5 - 50 - 5 * 14, 10, color.guiwhite, 'right');
 				text.debug[4].draw('Update Rate: ' + metrics.updatetime + 'Hz', _x32 + _len9, _y5 - 50 - 4 * 14, 10, color.guiwhite, 'right');
 				text.debug[3].draw('Latency: ' + metrics.latency + 'ms', _x32 + _len9, _y5 - 50 - 3 * 14, 10, color.guiwhite, 'right');
 				text.debug[2].draw('Client FPS: ' + metrics.rendertime, _x32 + _len9, _y5 - 50 - 2 * 14, 10, color.guiwhite, 'right');
@@ -3167,7 +3186,7 @@ var app =
 					});
 					// Draw box
 					var h = 14,
-					    _msg = "Don't Upgrade",
+					    _msg = "Close Upgrade Menu",
 					    m = measureText(_msg, h - 3) + 10;
 					var xx = xo + (xxx + _len11 + internalSpacing - xo) / 2,
 					    yy = yo + _height5 + internalSpacing;
@@ -3210,7 +3229,7 @@ var app =
 				});
 				txt = txt.slice(0, -4) + '.';
 			} else {
-				txt += 'you died a stupid death';
+				txt += 'you died';
 			}
 			return txt;
 		};
@@ -3225,13 +3244,13 @@ var app =
 			    xx = global.screenWidth / 2 - scale * position.middle.x * 0.707,
 			    yy = global.screenHeight / 2 - 35 + scale * position.middle.x * 0.707;
 			drawEntity(xx - 190 - len / 2, yy - 10, picture, 1.5, 1, 0.5 * scale / picture.realSize, -Math.PI / 4, true);
-			text.taunt.draw('lol you died', x, y - 80, 11, color.guiwhite, 'center');
+			text.taunt.draw('you are now dead, congrats', x, y - 80, 11, color.guiwhite, 'center');
 			text.level.draw('level = ' + _gui.__s.getLevel() + ' ' + mockups[_gui.type].name + '.', x - 170, y - 30, 24, color.guiwhite);
 			text.score.draw('score: ' + formatLargeNumber(Math.round(global.finalScore.get())), x - 170, y + 25, 50, color.guiwhite);
 			text.time.draw('Lived to ' + timeForHumans(Math.round(global.finalLifetime.get())) + '.', x - 170, y + 55, 16, color.guiwhite);
 			text.kills.draw(getKills(), x - 170, y + 77, 16, color.guiwhite);
 			text.death.draw(getDeath(), x - 170, y + 99, 16, color.guiwhite);
-			text.playagain.draw('Press enter to play again!', x, y + 125, 16, color.guiwhite, 'center');
+			text.playagain.draw('Press enter to play again', x, y + 125, 16, color.guiwhite, 'center');
 		};
 	}();
 
@@ -3266,7 +3285,7 @@ var app =
 		};
 		return function () {
 			clearScreen(mixColors(color.red, color.guiblack, 0.3), 0.25);
-			text.disconnected.draw('TF What were you thinking!?!', global.screenWidth / 2, global.screenHeight / 2, 30, color.guiwhite, 'center');
+			text.disconnected.draw('What were you thinking!', global.screenWidth / 2, global.screenHeight / 2, 30, color.guiwhite, 'center');
 			text.message.draw(global.message, global.screenWidth / 2, global.screenHeight / 2 + 30, 15, color.orange, 'center');
 		};
 	}();

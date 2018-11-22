@@ -102,6 +102,7 @@ exports.chooseBotName = () => {
         'Carmen',
         'David',
         'Edith',
+        'Egg',
         'Freddy',
         'Gustav',
         'Helga',
@@ -146,7 +147,30 @@ exports.chooseBotName = () => {
         'X-Ray',
         'Yankee',
         'Zulu',
-    ]);
+        'The Guy',
+        'Insert Name Here',
+        'Saturated Fat', 
+        'Your doom',
+        'BoB Da Builder',
+        'HSUDGsdbsdIY',
+        'Trapper',
+        'Best namer ever',
+        '101010001001',
+        'Fortnite',
+        'John',
+        'John4',
+        'Mr Bean',
+        'The best name ever',
+        'Killer',
+        'I am not a Bot',
+        'Tanky',
+        '#1 person',
+        'destoryer', 
+      'memes are good for u',
+      'happy Halloween',//change this depending on the season
+      'Ghost',
+      'N0ob',
+    ]); 
 };
 
 exports.chooseBossName = (code, n) => {
@@ -163,6 +187,8 @@ exports.chooseBossName = (code, n) => {
         'Artemis',
         'Anaxagoras',
         'Apollon',
+        'Acarous',
+        'Shockwave',
     ], n);
     case 'castle':
     return exports.chooseN([

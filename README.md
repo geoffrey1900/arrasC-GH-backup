@@ -1,12 +1,17 @@
 # ArrasCraft.io
-a arras.io private sever hosted by:
 
-CancelX (Main developer)
+Arras.io private sever hosted by: CancelX
 
-AC
+**Devolpment team**
 
-mse 
+`CancelX` (MAIN DEV)
 
-MEE7
+`mse` (DEV of mse's Arras Server [msk](http://arras.surge.sh/#private=msk.glitch.me))
 
-Ɗคᶇƙ๓ﻉ๓ﻉʂツ
+`antelope` (DEV of antelopes arras)
+
+`Ɗคᶇƙツ` (DEV of Dank's Arras, Co-Dev of ACarras)
+
+`Soundwave` (DEV of Soundwave's Arras [soundwave's arras](https://soundwave-arras.glitch.me/))
+
+`AC` (DEV of ACarras)
