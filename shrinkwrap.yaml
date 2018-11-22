@@ -1506,7 +1506,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-SrTJoPWlTbkzi0w02Gv86PSzVXE=
-      tarball: 'http://registry.npmjs.org/event-stream/-/event-stream-3.3.4.tgz'
   /events/1.1.1:
     dev: false
     engines:
@@ -3687,7 +3686,6 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-ofeDj4MUxRbwXs78vEzP4EtO14k=
-      tarball: 'http://registry.npmjs.org/onetime/-/onetime-1.1.0.tgz'
   /optimist/0.6.1:
     dependencies:
       minimist: 0.0.10
@@ -4472,7 +4470,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-vY6pemdI45+tR2o75v1y68LnK/A=
-      tarball: 'http://registry.npmjs.org/should-equal/-/should-equal-0.3.1.tgz'
   /should-format/0.0.7:
     dependencies:
       should-type: 0.0.4

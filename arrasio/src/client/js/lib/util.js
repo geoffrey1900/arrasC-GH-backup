@@ -53,7 +53,7 @@ exports.timeForHumans = x => {
     weh(hours, 'hour');
     weh(minutes, 'minute');
     weh(seconds, 'second');
-    if (y === '') { y = 'to be a noob'; }
+    if (y === '') { y = 'less than a second'; }
     return y;
 };
 exports.addArticle = string => {

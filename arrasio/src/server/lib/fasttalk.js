@@ -66,6 +66,7 @@ exports.encode = (() => {
         }
     };
     var findType = value => {        
+        if (value == undefined) value = 1;
         if (typeof value === 'string') {            
             for (var i = 0; i < value.length; i++) {
                 if (value.charCodeAt(i) > 255) return 'String16';
