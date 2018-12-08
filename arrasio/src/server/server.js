@@ -5860,7 +5860,7 @@ var maintainloop = (() => {
                 case 3: a = Class.pentagon; break;
                 case 4: a = Class.bigPentagon; break;
                 case 5: a = Class.hugePentagon; break;
-                case 5: a = undefined; break;
+                case 6: a = Class.eggimp; break;
                 case 7: a = Class.gem; break;
                 case 8: a = Class.greensquare; break;
                 case 9: a = Class.greentriangle; break;
@@ -5978,8 +5978,7 @@ var maintainloop = (() => {
             placeNewFood(spot, 0.01 * room.width, 3, true);
         };
         let makeGems = () => { // Make gems
-            let spot = {};
-            do { spot = room.gaussRing(1/2, 2); } while (room.isIn('roid', spot));
+            let spot = room.randomType('roid');
             placeNewFood(spot, 0.1 * room.width, 7);
         };
         // Return the full function
@@ -6039,7 +6038,7 @@ var maintainloop = (() => {
             foodSpawners.forEach(spawner => { if (ran.chance(1 - foodAmount/maxFood)) spawner.rot(); });
             /************** MAKE FOOD **************/
             while (ran.chance(0.8 * (1 - foodAmount * foodAmount / maxFood / maxFood))) {
-                switch (ran.chooseChance(10, 3, 1)) {
+                switch (ran.chooseChance(10, 4, 2, 1)) {
                 case 0: makeGroupedFood(); break;
                 case 1: makeDistributedFood(); break;
                 case 2: makeCornerFood(); break;
