@@ -67,7 +67,7 @@ exports.heal    = '#90EE90'; // 26
 exports.corrder = '#5d9947'; // 27
 exports.fire    = '#ff8c00'; // 28
 exports.electric= '#ffff00'; // 29
-exports.outlineVisibleOnly = '#6f4370'; //100
+exports.outlineVisibleOnly = '#ff2000'; //100
 
 
 exports.paletteSize = 10;

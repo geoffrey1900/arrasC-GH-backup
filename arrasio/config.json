@@ -27,7 +27,7 @@
   "RANDOM_COLORS": true,
   "BANNED_CHARACTER_REGEX": "/[\uFDFD\u200E\u0000]/gi", 
   "ROOM_SETUP": [
-    [ "bas1", "bas1", "norm", "norm", "norm", "norm", "fore", "fore", "fore", "watr", "fore", "fore", "fore", "fore", "norm", "norm", "norm", "norm", "bas2", "bas2" ],
+    [ "bas1", "bas1", "norm", "norm", "norm", "norm", "fore", "fore", "fore", "watr", "prti", "fore", "fore", "fore", "norm", "norm", "norm", "norm", "bas2", "bas2" ],
     [ "bas1", "norm", "norm", "norm", "norm", "norm", "fore", "fore", "fore", "watr", "fore", "fore", "fore", "fore", "norm", "norm", "norm", "norm", "norm", "bas2" ],
     [ "norm", "norm", "norm", "norm", "norm", "norm", "fore", "fore", "fore", "fore", "watr", "fore", "fore", "fore", "norm", "norm", "norm", "norm", "norm", "norm" ],
     [ "norm", "norm", "norm", "heal", "norm", "norm", "fore", "fore", "fore", "watr", "watr", "fore", "fore", "fore", "norm", "norm", "heal", "norm", "norm", "norm" ],
@@ -46,7 +46,7 @@
     [ "norm", "norm", "norm", "heal", "norm", "norm", "roid", "roid", "roid", "roid", "roid", "roid", "roid", "roid", "norm", "norm", "heal", "norm", "norm", "norm" ],
     [ "norm", "norm", "norm", "norm", "norm", "norm", "roid", "roid", "roid", "roid", "roid", "roid", "roid", "roid", "norm", "norm", "norm", "norm", "norm", "norm" ],
     [ "bas3", "norm", "norm", "norm", "norm", "norm", "roid", "roid", "roid", "roid", "roid", "roid", "roid", "roid", "norm", "norm", "norm", "norm", "norm", "bas4" ],
-    [ "bas3", "bas3", "norm", "norm", "norm", "norm", "roid", "roid", "roid", "roid", "roid", "roid", "roid", "roid", "norm", "norm", "norm", "norm", "bas4", "bas4" ]        
+    [ "bas3", "bas3", "norm", "norm", "norm", "norm", "roid", "roid", "roid", "prto", "roid", "roid", "roid", "roid", "norm", "norm", "norm", "norm", "bas4", "bas4" ]        
   ],
   "DAMAGE_CONSTANT": 0.6,
   "KNOCKBACK_CONSTANT": 1,
@@ -83,6 +83,6 @@
   "MIN_SPEED": 0.001,
   "FOOD_AMOUNT": 0, 
   "SKILL_BOOST": 15,
-  "BOTS": 10, 
+  "BOTS": 0, 
   "GLASS_HEALTH_FACTOR": 2.5
 }

@@ -54,9 +54,9 @@ var app =
 /***/function (module, exports) {
 
 	//lets play the music
-	var gamemusic = new Audio('Game_Music.mp3');
-	gamemusic.play();
-	console.log('Starting music');
+	//var gamemusic = new Audio('Game_Music.mp3');
+	//memusic.play();
+	//nsole.log('Starting music');
 
 	/*global require, console*/
 	/*jshint -W097*/
@@ -387,6 +387,9 @@ var app =
 				return color.yellow;
 			case 'ctfX':
 				return '#000000';
+			case "prti":
+			case 'prto':
+				return color.guiblack;
 			case 'roid':
 				return color.dgrey;
 			case 'zone':
@@ -906,7 +909,7 @@ var app =
 		}
 
 		_createClass(Canvas, [{
-			key: 'keyboardDown',
+			key: "keyboardDown",
 			value: function keyboardDown(event) {
 				switch (event.keyCode) {
 					case 13:
@@ -1019,7 +1022,7 @@ var app =
 				}
 			}
 		}, {
-			key: 'keyboardUp',
+			key: "keyboardUp",
 			value: function keyboardUp(event) {
 				switch (event.keyCode) {
 					case global.KEY_UP_ARROW:
@@ -1050,7 +1053,7 @@ var app =
 				}
 			}
 		}, {
-			key: 'mouseDown',
+			key: "mouseDown",
 			value: function mouseDown(mouse) {
 				switch (mouse.button) {
 					case 0:
@@ -1073,7 +1076,7 @@ var app =
 				}
 			}
 		}, {
-			key: 'mouseUp',
+			key: "mouseUp",
 			value: function mouseUp(mouse) {
 				switch (mouse.button) {
 					case 0:
@@ -1090,7 +1093,7 @@ var app =
 			// Mouse location (we send target information in the heartbeat)
 
 		}, {
-			key: 'gameInput',
+			key: "gameInput",
 			value: function gameInput(mouse) {
 				this.parent.target.x = mouse.clientX - this.width / 2;
 				this.parent.target.y = mouse.clientY - this.height / 2;
@@ -2297,11 +2300,11 @@ var app =
 					if (value == null) {
 						eh = true;
 					} else {
-						if ((typeof newValue === 'undefined' ? 'undefined' : _typeof(newValue)) != (typeof value === 'undefined' ? 'undefined' : _typeof(value))) {
+						if ((typeof newValue === "undefined" ? "undefined" : _typeof(newValue)) != (typeof value === "undefined" ? "undefined" : _typeof(value))) {
 							eh = true;
 						}
 						// Decide what to do based on what type it is
-						switch (typeof newValue === 'undefined' ? 'undefined' : _typeof(newValue)) {
+						switch (typeof newValue === "undefined" ? "undefined" : _typeof(newValue)) {
 							case 'number':
 							case 'string':
 								{
@@ -2645,7 +2648,7 @@ var app =
 		if (instance.nameplate && instance.id !== _gui.playerid) {
 			if (instance.render.textobjs == null) instance.render.textobjs = [TextObj(), TextObj()];
 			ctx.globalAlpha = alpha;
-			if (instance.name !== '\0') {
+			if (instance.name !== "\0") {
 				instance.render.textobjs[0].draw(instance.name, x, y - realSize - 30, 16, color.guiwhite, 'center');
 				instance.render.textobjs[1].draw(handleLargeNumber(instance.score, true), x, y - realSize - 16, 8, color.guiwhite, 'center');
 			} else {
@@ -2657,7 +2660,7 @@ var app =
 		if (instance.chattxt) {
 			if (instance.render.textobjs == null) instance.render.textobj = [TextObj()];
 			ctx.globalAlpha = alpha;
-			if (instance.chattxt !== '\0') {
+			if (instance.chattxt !== "\0") {
 				instance.render.textobjs[0].draw(instance.chattxt, x, y - realSize - 30, 16, color.red, 'center');
 			}
 			ctx.globalAlpha = 0.75;
