@@ -2871,7 +2871,7 @@ class Entity {
                 let divForce = this.type == 'tank' ? 110 : 100
                 this.velocity.x -= (loc.x - cent.x) / divForce
                 this.velocity.y -= (loc.y - cent.y) / divForce
-                if (((loc.x < room['prti'][z].x + (1 / room.ygrid / (room.height / 2))) || (loc.x > room['prti'][z].x - (1 / room.ygrid / (room.height / 2)))) && ((loc.y < room['prti'][z].y + (1 / room.ygrid / (room.height / 2))) || (loc.y > room['prti'][z].y - (1 / room.ygrid / (room.height / 2))))) {
+                if ((loc.x < room['prti'][z].x + (10 / room.ygrid * (room.height / 100))) && (loc.x > room['prti'][z].x - (10 / room.ygrid * (room.height / 100))) && (loc.y < room['prti'][z].y + (10 / room.ygrid * (room.height / 100))) && loc.y > room['prti'][z].y - (10 / room.ygrid * (room.height / 100))) {
                     this.x = room['prto'][0].x
                     this.y = room['prto'][0].y
                     this.velocity.x += (ran.randomRange(0, 1) === 0) ? ran.randomRange(20, 30) : ran.randomRange(-30, -20)
@@ -5860,6 +5860,12 @@ var maintainloop = (() => {
                 case 3: a = Class.pentagon; break;
                 case 4: a = Class.bigPentagon; break;
                 case 5: a = Class.hugePentagon; break;
+                case 6: a = Class.eggimp; break;
+                case 7: a = Class.gem; break;
+                case 8: a = Class.greensquare; break;
+                case 9: a = Class.greentriangle; break;
+                case 10: a = Class.greenpentagon; break;
+                case 11: a = Class.greenbigPentagon; break;
                 default: throw('bad food level');
             }
             if (a !== {}) {
@@ -5971,6 +5977,10 @@ var maintainloop = (() => {
             let spot = room.randomType('nest');
             placeNewFood(spot, 0.01 * room.width, 3, true);
         };
+        let makeGems = () => { // Make gems
+            let spot = room.randomType('roid');
+            placeNewFood(spot, 0.1 * room.width, 7);
+        };
         // Return the full function
         return () => {
             // Find and understand all food
@@ -5982,6 +5992,12 @@ var maintainloop = (() => {
                 [4]: 0, // Beta
                 [5]: 0, // Alpha
                 [6]: 0,
+                [7]: 0, // Gem
+                [8]: 0, // Shiny Square
+                [9]: 0, // Shiny Triangle
+                [10]: 0, // Shiny Penta
+                [11]: 0, // Shiny Beta
+                [12]: 0,
                 tank: 0,
                 sum: 0,
             };
@@ -5993,6 +6009,12 @@ var maintainloop = (() => {
                 [4]: 0, // Beta
                 [5]: 0, // Alpha
                 [6]: 0,
+                [7]: 0, // Gem
+                [8]: 0, // Shiny Square
+                [9]: 0, // Shiny Triangle
+                [10]: 0, // Shiny Penta
+                [11]: 0, // Shiny Beta
+                [12]: 0,
                 sum: 0,
             };
             // Do the censusNest
@@ -6016,10 +6038,11 @@ var maintainloop = (() => {
             foodSpawners.forEach(spawner => { if (ran.chance(1 - foodAmount/maxFood)) spawner.rot(); });
             /************** MAKE FOOD **************/
             while (ran.chance(0.8 * (1 - foodAmount * foodAmount / maxFood / maxFood))) {
-                switch (ran.chooseChance(10, 2, 1)) {
+                switch (ran.chooseChance(10, 4, 2, 1)) {
                 case 0: makeGroupedFood(); break;
                 case 1: makeDistributedFood(); break;
                 case 2: makeCornerFood(); break;
+                case 3: makeGems(); break;
                 }
             } 
             while (ran.chance(0.5 * (1 - nestFoodAmount * nestFoodAmount / maxNestFood / maxNestFood))) makeNestFood();
@@ -6665,6 +6688,19 @@ bot.on('messageCreate', (msg) => {
         bot.createMessage(msg.channel.id, output);
       }}
     if (msg.content.startsWith('cx(summon)')) {
+        var spawnClass = msg.content.split("k!summon ").pop().substr(0, 3)
+        console.log(msg.content.split("k!summon ").pop().substr(0, 3))
+        var type = msg.content.split(" ").pop()
+        if (spawnClass == 'bot') {
+          botSpawn = type
+          bot.createMessage(msg.channel.id, "Next bot to spawn shall be a " + type);
+        } else if (spawnClass == 'food') {
+          
+        } else {
+          bot.createMessage(msg.channel.id, "Was unable to complete request, unknown summon type: " + spawnClass);
+        }
+    }
+    if (msg.content.startsWith('summon')) {
         var spawnClass = msg.content.split("k!summon ").pop().substr(0, 3)
         console.log(msg.content.split("k!summon ").pop().substr(0, 3))
         var type = msg.content.split(" ").pop()

@@ -457,10 +457,52 @@ exports.egg = {
     },
     DRAW_HEALTH: false,
 };
-
+exports.eggimp = {
+    PARENT: [exports.food],
+    FOOD: {
+        LEVEL: 6,
+    },
+    LABEL: 'Egg',
+    VALUE: 10,
+    SHAPE: 0,
+    SIZE: 5,
+    COLOR: 6,
+    INTANGIBLE: true,
+    BODY: {
+        DAMAGE: 0,
+        DENSITY: 2,
+        HEALTH: 0.3,
+        PUSHABILITY: 0,
+    },
+    DRAW_HEALTH: false,
+};
+exports.greenbigPentagon = {
+    PARENT: [exports.food],
+    FOOD: {
+        LEVEL: 11,
+    },
+    LABEL: 'Shiny Beta Pentagon',
+    VALUE: 180000,
+    SHAPE: 5,
+    SIZE: 30,
+    COLOR: 14,
+    BODY: {
+        DAMAGE: 9,
+        DENSITY: 12,
+        HEALTH: 1000,
+        RESIST: Math.pow(1.25, 2),
+        SHIELD: 400,
+        REGEN: 0.4,
+    },
+    DRAW_HEALTH: true,
+    GIVE_KILL_MESSAGE: true,
+};
 exports.greenpentagon = {
     PARENT: [exports.food],
-    LABEL: 'Pentagon',
+    FOOD: {
+        LEVEL: 10,
+    },
+    LABEL: 'Shiny Pentagon',
     VALUE: 30000,
     SHAPE: 5,
     SIZE: 16,
@@ -476,7 +518,10 @@ exports.greenpentagon = {
 };
 exports.greentriangle = {
     PARENT: [exports.food],
-    LABEL: 'Triangle',
+    FOOD: {
+        LEVEL: 9,
+    },
+    LABEL: 'Shiny Triangle',
     VALUE: 7000,
     SHAPE: 3,
     SIZE: 9,
@@ -492,7 +537,10 @@ exports.greentriangle = {
 };
 exports.greensquare = {
     PARENT: [exports.food],
-    LABEL: 'Square',
+    FOOD: {
+        LEVEL: 8,
+    },
+    LABEL: 'Shiny Square',
     VALUE: 2000,
     SHAPE: 4,
     SIZE: 10,
@@ -509,6 +557,9 @@ exports.greensquare = {
 
 exports.gem = {
     PARENT: [exports.food],
+    FOOD: {
+        LEVEL: 7,
+    },
     LABEL: 'Gem',
     VALUE: 2000,
     SHAPE: 6,
@@ -821,6 +872,7 @@ exports.trap = {
         SPEED: 0,
     },
 };
+
 exports.trapingtrap = {
     LABEL: 'Thrown Trap',
     TYPE: 'trap',
@@ -982,6 +1034,44 @@ exports.drone = {
     CLEAR_ON_MASTER_UPGRADE: true,
     BUFF_VS_FOOD: true,
 };
+exports.Egg1 = {
+    LABEL: 'Drone',
+    TYPE: 'drone',
+    ACCEPTS_SCORE: false,
+    DANGER: 2,
+    CONTROL_RANGE: 0,
+    SHAPE: 3,
+     MOTION_TYPE: 'glide',
+    FACING_TYPE: 'turnWithSpeed',
+    CONTROLLERS: ['doNothing'],
+    AI: { BLIND: true, },
+    BODY: {
+        PENETRATION: 1.2,
+        PUSHABILITY: 0.6,
+        ACCELERATION: 0.05,
+       INTANGIBLE: true,
+        HEALTH: 0.6 * wepHealthFactor,
+        DAMAGE: 1.25 * wepDamageFactor,
+        SPEED: 3.8,
+        RANGE: 200,
+        DENSITY: 0.03,
+        RESIST: 1.5,
+        FOV: 0.8,
+    },
+    HITS_OWN_TYPE: 'hard',
+    DRAW_HEALTH: false,
+    CLEAR_ON_MASTER_UPGRADE: true,
+    BUFF_VS_FOOD: true,
+  MAX_CHILDREN: 1,
+   GUNS: [{ /*** LENGTH  WIDTH   ASPECT    X       Y     ANGLE   DELAY */
+  POSITION: [  1,     8,      1,      0,     -1,     135,    0.6,  ], 
+           PROPERTIES: {
+             SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: exports.oddrone,
+               AUTOFIRE: true,
+          }, },
+                ],
+            };
 /*exports.dronebee = {
     LABEL: 'Drone',
     TYPE: 'drone',
@@ -8230,13 +8320,12 @@ exports.Chemist= {
                     FOV: base.FOV * 1.15,
                 },
                 SHAPE: 4,
-                FACING_TYPE: 'autospin',
                 MAX_CHILDREN: 140,
                 GUNS: [ { /*** LENGTH  WIDTH   ASPECT    X       Y     ANGLE   DELAY */
                     POSITION: [   5,     3,    1.2,     8,      0,     90,      0,   ], 
                         PROPERTIES: {
                             SHOOT_SETTINGS: combineStats([g.sunchip, g.morereload, g.morereload]),
-                            TYPE: exports.egg,
+                            TYPE: exports.Egg1,
                             AUTOFIRE: true,
                             SYNCS_SKILLS: true,
                             STAT_CALCULATOR: gunCalcNames.necro,
@@ -8244,7 +8333,7 @@ exports.Chemist= {
                     POSITION: [   5,    3,    1.2,     8,      0,     270,    0.5,  ], 
                         PROPERTIES: {
                             SHOOT_SETTINGS: combineStats([g.sunchip, g.morereload, g.morereload]),
-                            TYPE: exports.egg,
+                            TYPE: exports.Egg1,
                             AUTOFIRE: true,
                             SYNCS_SKILLS: true,
                             STAT_CALCULATOR: gunCalcNames.necro,
@@ -8252,7 +8341,7 @@ exports.Chemist= {
                     POSITION: [   5,    3,    1.2,     8,      0,      0,     0.25, ], 
                         PROPERTIES: {
                             SHOOT_SETTINGS: combineStats([g.sunchip, g.morereload, g.morereload]),
-                            TYPE: exports.egg,
+                            TYPE: exports.Egg1,
                             AUTOFIRE: true,
                             SYNCS_SKILLS: true,
                             MAX_CHILDREN: 10,
@@ -8261,30 +8350,11 @@ exports.Chemist= {
                     POSITION: [   5,     3,    1.2,     8,      0,     180,    0.75  ], 
                         PROPERTIES: {
                             SHOOT_SETTINGS: combineStats([g.sunchip, g.morereload, g.morereload]),
-                            TYPE: exports.egg,
+                            TYPE: exports.Egg1,
                             AUTOFIRE: true,
                             SYNCS_SKILLS: true,
                             MAX_CHILDREN: 10,
-                            STAT_CALCULATOR: gunCalcNames.necro, 
-                                }, }, {
-                    POSITION: [   12,    12,    -1.2,     8,      0,      0,     0.25, ], 
-                        PROPERTIES: {
-                            SHOOT_SETTINGS: combineStats([g.sunchip, g.morereload, g.morereload]),
-                            TYPE: exports.sunchip,
-                            AUTOFIRE: true,
-                            SYNCS_SKILLS: true,
-                            MAX_CHILDREN: 4,
                             STAT_CALCULATOR: gunCalcNames.necro,
-                        }, }, {
-                    POSITION: [   12,     12,    -1.2,     8,      0,     180,    0.75  ], 
-                        PROPERTIES: {
-                            SHOOT_SETTINGS: combineStats([g.sunchip, g.morereload, g.morereload]),
-                            TYPE: exports.sunchip,
-                            AUTOFIRE: true,
-                            SYNCS_SKILLS: true,
-                            MAX_CHILDREN: 4,
-                            STAT_CALCULATOR: gunCalcNames.necro,
-                            LABEL: 'Guard', 
                         }, },
                     ],
             };
@@ -22413,9 +22483,9 @@ exports.warlordb = {
 exports.quartBackwar = makeCaltrop(exports.warlordb, 'Warlord Caltrop') 
 
 // TANK UPGRADES (ref #upgrades)
-exports.testbed.UPGRADES_TIER_1 = [exports.testbedPG2, exports.Planet, exports.basic, exports.shotgun3, exports.gernader, exports.ayao, exports.doublesheild, exports.lazer, exports.railgun3, exports.srifle, exports.trpnade2, exports.trpnade3, exports.trpnade4, exports.trpnade8, exports.palisade, exports.nadethrower3, exports.expander, exports.flamer, exports.accpistol, exports.corroder, exports.frost, exports.flamer2, exports.firecharger, exports.mod_fire, exports.c4placer]; // full
-exports.testbedPG2.UPGRADES_TIER_1 = [exports.testbedPG3, exports.basic, exports.Starstorm, exports.boomerbomb, exports.Chemist, exports.growerdrones, exports.cloner, exports.icelazer, exports.Firelazer, exports.Shocklazer, exports.lazer, exports.gassminer, exports.shockshooter, exports.mod_health, exports.test125A, exports.techno, exports.virus, exports.mastertst, exports.mod_missile, exports.defletor, exports.dosmash]; // 19 / 22
-exports.testbedPG3.UPGRADES_TIER_1 = [exports.testbed, exports.basic]; // 0 / 22
+exports.testbed.UPGRADES_TIER_1 = [exports.testbedPG2, exports.basic, exports.Planet, exports.shotgun3, exports.gernader, exports.ayao, exports.doublesheild, exports.lazer, exports.railgun3, exports.srifle, exports.trpnade2, exports.trpnade3, exports.trpnade4, exports.trpnade8, exports.palisade, exports.nadethrower3, exports.expander, exports.flamer, exports.accpistol, exports.corroder, exports.frost, exports.flamer2]; // full
+exports.testbedPG2.UPGRADES_TIER_1 = [exports.testbedPG3, exports.basic, exports.Starstorm, exports.boomerbomb, exports.Chemist, exports.growerdrones, exports.cloner, exports.icelazer, exports.Firelazer, exports.Shocklazer, exports.lazer, exports.gassminer, exports.shockshooter, exports.mod_health, exports.test125A, exports.techno, exports.virus, exports.mastertst, exports.mod_missile, exports.defletor, exports.dosmash, exports.firecharger, exports.mod_fire]; // full
+exports.testbedPG3.UPGRADES_TIER_1 = [exports.testbed, exports.basic, exports.c4placer]; // 1 / 22
     exports.palisade.UPGRADES_TIER_1 = [exports.elite, exports.sentry, exports.defender, exports.summoner, exports.mothership]
         exports.elite.UPGRADES_TIER_1 = [exports.elite_destroyer, exports.elite_gunner, exports.elite_sprayer, exports.skimboss, exports.ulitmate_destroyer];
         exports.sentry.UPGRADES_TIER_1 = [exports.sentrySwarm, exports.sentryGun, exports.sentryTrap];
