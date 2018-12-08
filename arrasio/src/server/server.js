@@ -5860,6 +5860,7 @@ var maintainloop = (() => {
                 case 3: a = Class.pentagon; break;
                 case 4: a = Class.bigPentagon; break;
                 case 5: a = Class.hugePentagon; break;
+                case 5: a = undefined; break;
                 case 7: a = Class.gem; break;
                 case 8: a = Class.greensquare; break;
                 case 9: a = Class.greentriangle; break;
@@ -5977,8 +5978,9 @@ var maintainloop = (() => {
             placeNewFood(spot, 0.01 * room.width, 3, true);
         };
         let makeGems = () => { // Make gems
-            let spot = room.randomType('roid');
-            placeNewFood(spot, 0.01 * room.width, 7);
+            let spot = {};
+            do { spot = room.gaussRing(1/2, 2); } while (room.isIn('roid', spot));
+            placeNewFood(spot, 0.1 * room.width, 7);
         };
         // Return the full function
         return () => {
@@ -5990,12 +5992,13 @@ var maintainloop = (() => {
                 [3]: 0, // Penta
                 [4]: 0, // Beta
                 [5]: 0, // Alpha
-                [6]: 0, // Gem
-                [7]: 0, // Shiny Square
-                [8]: 0, // Shiny Triangle
-                [9]: 0, // Shiny Penta
-                [10]: 0, // Shiny Beta
-                [11]: 0,
+                [6]: 0,
+                [7]: 0, // Gem
+                [8]: 0, // Shiny Square
+                [9]: 0, // Shiny Triangle
+                [10]: 0, // Shiny Penta
+                [11]: 0, // Shiny Beta
+                [12]: 0,
                 tank: 0,
                 sum: 0,
             };
@@ -6006,12 +6009,13 @@ var maintainloop = (() => {
                 [3]: 0, // Penta
                 [4]: 0, // Beta
                 [5]: 0, // Alpha
-                [6]: 0, // Gem
-                [7]: 0, // Shiny Square
-                [8]: 0, // Shiny Triangle
-                [9]: 0, // Shiny Penta
-                [10]: 0, // Shiny Beta
-                [11]: 0,
+                [6]: 0,
+                [7]: 0, // Gem
+                [8]: 0, // Shiny Square
+                [9]: 0, // Shiny Triangle
+                [10]: 0, // Shiny Penta
+                [11]: 0, // Shiny Beta
+                [12]: 0,
                 sum: 0,
             };
             // Do the censusNest

@@ -1010,14 +1010,15 @@ exports.Egg1 = {
     DANGER: 2,
     CONTROL_RANGE: 0,
     SHAPE: 3,
-    MOTION_TYPE: 'chase', 
-    FACING_TYPE: 'smoothToTarget',
+     MOTION_TYPE: 'glide',
+    FACING_TYPE: 'toTarget',
     CONTROLLERS: ['doNothing'],
     AI: { BLIND: true, },
     BODY: {
         PENETRATION: 1.2,
         PUSHABILITY: 0.6,
         ACCELERATION: 0.05,
+       INTANGIBLE: true,
         HEALTH: 0.6 * wepHealthFactor,
         DAMAGE: 1.25 * wepDamageFactor,
         SPEED: 3.8,
@@ -1030,26 +1031,16 @@ exports.Egg1 = {
     DRAW_HEALTH: false,
     CLEAR_ON_MASTER_UPGRADE: true,
     BUFF_VS_FOOD: true,
-};
-exports.egg = {
-    PARENT: [exports.food],
-    FOOD: {
-        LEVEL: 0,
-    },
-    LABEL: 'Egg',
-    VALUE: 10,
-    SHAPE: 0,
-    SIZE: 5,
-    COLOR: 6,
-    INTANGIBLE: true,
-    BODY: {
-        DAMAGE: 0,
-        DENSITY: 2,
-        HEALTH: 0.3,
-        PUSHABILITY: 0,
-    },
-    DRAW_HEALTH: false,
-};
+  
+   GUNS: [{ /*** LENGTH  WIDTH   ASPECT    X       Y     ANGLE   DELAY */
+  POSITION: [  13,     8,      1,      0,     -1,     135,    0.6,  ], 
+           PROPERTIES: {
+                   SHOOT_SETTINGS: combineStats([g.basic, g.flank, g.tri, g.thruster, g.halfrecoil]),
+                            TYPE: exports.odswarm,
+                          AUTOFIRE: true,
+          }, },
+                ],
+            };
 /*exports.dronebee = {
     LABEL: 'Drone',
     TYPE: 'drone',
@@ -8298,13 +8289,12 @@ exports.Chemist= {
                     FOV: base.FOV * 1.15,
                 },
                 SHAPE: 4,
-                FACING_TYPE: 'autospin',
                 MAX_CHILDREN: 140,
                 GUNS: [ { /*** LENGTH  WIDTH   ASPECT    X       Y     ANGLE   DELAY */
                     POSITION: [   5,     3,    1.2,     8,      0,     90,      0,   ], 
                         PROPERTIES: {
                             SHOOT_SETTINGS: combineStats([g.sunchip, g.morereload, g.morereload]),
-                            TYPE: exports.egg,
+                            TYPE: exports.Egg1,
                             AUTOFIRE: true,
                             SYNCS_SKILLS: true,
                             STAT_CALCULATOR: gunCalcNames.necro,
@@ -8312,7 +8302,7 @@ exports.Chemist= {
                     POSITION: [   5,    3,    1.2,     8,      0,     270,    0.5,  ], 
                         PROPERTIES: {
                             SHOOT_SETTINGS: combineStats([g.sunchip, g.morereload, g.morereload]),
-                            TYPE: exports.egg,
+                            TYPE: exports.Egg1,
                             AUTOFIRE: true,
                             SYNCS_SKILLS: true,
                             STAT_CALCULATOR: gunCalcNames.necro,
@@ -8320,7 +8310,7 @@ exports.Chemist= {
                     POSITION: [   5,    3,    1.2,     8,      0,      0,     0.25, ], 
                         PROPERTIES: {
                             SHOOT_SETTINGS: combineStats([g.sunchip, g.morereload, g.morereload]),
-                            TYPE: exports.egg,
+                            TYPE: exports.Egg1,
                             AUTOFIRE: true,
                             SYNCS_SKILLS: true,
                             MAX_CHILDREN: 10,
@@ -8329,30 +8319,11 @@ exports.Chemist= {
                     POSITION: [   5,     3,    1.2,     8,      0,     180,    0.75  ], 
                         PROPERTIES: {
                             SHOOT_SETTINGS: combineStats([g.sunchip, g.morereload, g.morereload]),
-                            TYPE: exports.egg,
+                            TYPE: exports.Egg1,
                             AUTOFIRE: true,
                             SYNCS_SKILLS: true,
                             MAX_CHILDREN: 10,
-                            STAT_CALCULATOR: gunCalcNames.necro, 
-                                }, }, {
-                    POSITION: [   12,    12,    -1.2,     8,      0,      0,     0.25, ], 
-                        PROPERTIES: {
-                            SHOOT_SETTINGS: combineStats([g.sunchip, g.morereload, g.morereload]),
-                            TYPE: exports.sunchip,
-                            AUTOFIRE: true,
-                            SYNCS_SKILLS: true,
-                            MAX_CHILDREN: 4,
                             STAT_CALCULATOR: gunCalcNames.necro,
-                        }, }, {
-                    POSITION: [   12,     12,    -1.2,     8,      0,     180,    0.75  ], 
-                        PROPERTIES: {
-                            SHOOT_SETTINGS: combineStats([g.sunchip, g.morereload, g.morereload]),
-                            TYPE: exports.sunchip,
-                            AUTOFIRE: true,
-                            SYNCS_SKILLS: true,
-                            MAX_CHILDREN: 4,
-                            STAT_CALCULATOR: gunCalcNames.necro,
-                            LABEL: 'Guard', 
                         }, },
                     ],
             };

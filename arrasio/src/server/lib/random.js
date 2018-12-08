@@ -147,7 +147,7 @@ exports.chooseBotName = () => {
         'X-Ray',
         'Yankee',
         'Zulu',
-        'The Guy',
+        /*'The Guy',
         'Insert Name Here',
         'Saturated Fat', 
         'Your doom',
@@ -169,7 +169,7 @@ exports.chooseBotName = () => {
       'memes are good for u',
       'happy Halloween',//change this depending on the season
       'Ghost',
-      'N0ob',
+      'N0ob',*/
     ]); 
 };
 
