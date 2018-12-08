@@ -1,7 +1,7 @@
 //lets play the music
-var gamemusic = new Audio('Game_Music.mp3');
-gamemusic.play();
-console.log('Starting music');
+//var gamemusic = new Audio('Game_Music.mp3');
+//memusic.play();
+//nsole.log('Starting music');
 
 /*global require, console*/ 
 /*jshint -W097*/
@@ -321,6 +321,9 @@ function getZoneColor(cell, real) {
             return color.yellow;
         case 'ctfX':
             return '#000000';
+        case "prti":
+        case 'prto':
+            return color.guiblack;
         case 'roid':
             return color.dgrey;
         case 'zone':

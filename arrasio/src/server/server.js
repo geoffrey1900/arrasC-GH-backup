@@ -50,7 +50,8 @@ var lowlvlkeys = [
     'mseIsFatterThanYourBodyHasRoomFor',
     'Dankestmeme',
     'dan20sSuperCoolToken',
-    'ACdevAC'
+    'ACdevAC',
+    'starlightsToken1728304',
 ];
 var medlvlkeys = [
 // tokens
@@ -61,7 +62,8 @@ var medlvlkeys = [
     'mseIsFatterThanYourBodyHasRoomFor',
     'Dankestmeme',
     'dan20sSuperCoolToken',
-    'ACdevAC'
+    'ACdevAC',
+    'starlightsToken1728304',
 ];
 var highlvlkeys = [
 // tokens
@@ -70,7 +72,8 @@ var highlvlkeys = [
     'Dankestmeme',
     'dan20sSuperCoolToken',
     'Soundofthemirror',
-    'ACdevAC'
+    'ACdevAC',
+    'starlightsToken1728304',
 ];
 var keys = [
 // tokens
@@ -84,6 +87,7 @@ var keys = [
     'Soundofthemirror',
     'AntTheLope',
     'ACdevAC',
+    'starlightsToken1728304',
 ];
 
 // Set up room.
@@ -141,7 +145,7 @@ const room = {
     room.findType('bap3');
     room.findType('bap4');
     room.findType('bap5');
-    // with base portectors
+    // ctf junk
     room.findType('ctf1');
     room.findType('ctf2');
     room.findType('ctf3');
@@ -159,6 +163,11 @@ const room = {
     room.findType('heal');
     room.findType('lava');
     room.findType('test');
+    //u r ded
+    room.findType('dead');
+    //portals
+    room.findType('prti');
+    room.findType('prto');
     // (WIP) move squares
     room.findType('movl');
     room.findType('movr');
@@ -2841,6 +2850,63 @@ class Entity {
             this.accel.y -= Math.min(this.y - this.realSize + 50, 0) * c.ROOM_BOUND_FORCE / roomSpeed;
             this.accel.y -= Math.max(this.y + this.realSize - room.height - 50, 0) * c.ROOM_BOUND_FORCE / roomSpeed;
         }
+        if (this.type !== 'food' && this.type !== "crasher") {
+              let loc = { x: this.x, y: this.y, };
+              if (room.isIn('prti', loc)) {
+                var gridpos = {
+                    x: Math.floor(loc.x * room.xgrid / room.width),
+                    y: Math.floor(loc.y * room.ygrid / room.height),
+                }
+                var z = 0
+                for (var i = 0; i < room['prti'].length; i++) {
+                    var amdgridportin = {
+                        y: (room['prti'][i].y * room.ygrid / room.height) - 0.5,
+                        x: (room['prti'][i].x * room.xgrid / room.width) - 0.5,
+                    }
+                    if ((amdgridportin.x === gridpos.x) && (amdgridportin.y === gridpos.y)) {
+                        z = i
+                    }
+                }
+                let cent = room['prti'][z]
+                let divForce = this.type == 'tank' ? 110 : 100
+                this.velocity.x -= (loc.x - cent.x) / divForce
+                this.velocity.y -= (loc.y - cent.y) / divForce
+                if (((loc.x < room['prti'][z].x + (1 / room.ygrid / (room.height / 2))) || (loc.x > room['prti'][z].x - (1 / room.ygrid / (room.height / 2)))) && ((loc.y < room['prti'][z].y + (1 / room.ygrid / (room.height / 2))) || (loc.y > room['prti'][z].y - (1 / room.ygrid / (room.height / 2))))) {
+                    this.x = room['prto'][0].x
+                    this.y = room['prto'][0].y
+                    this.velocity.x += (ran.randomRange(0, 1) === 0) ? ran.randomRange(20, 30) : ran.randomRange(-30, -20)
+                    this.velocity.y += (ran.randomRange(0, 1) === 0) ? ran.randomRange(20, 30) : ran.randomRange(-30, -20)
+                }
+              }
+            }
+        if (this.type !== 'food' && this.type !== "crasher") {
+              let loc = { x: this.x, y: this.y, };
+              if (room.isIn('prti', loc)) {
+              }
+            }
+        if (this.type !== 'food' && this.type !== "crasher") {
+              let loc = { x: this.x, y: this.y, };
+              if (room.isIn('prto', loc)) {
+                var gridpos = {
+                    x: Math.floor(loc.x * room.xgrid / room.width),
+                    y: Math.floor(loc.y * room.ygrid / room.height),
+                }
+                var a = 0
+                for (var i = 0; i < room['prto'].length; i++) {
+                    var amdgridportout = {
+                        y: (room['prto'][i].y * room.ygrid / room.height) - 0.5,
+                        x: (room['prto'][i].x * room.xgrid / room.width) - 0.5,
+                    }
+                    if ((amdgridportout.x === gridpos.x) && (amdgridportout.y === gridpos.y)) {
+                        z = i
+                    }
+                }
+                let cent = room['prto'][z]
+                let divForce = this.type == 'tank' ? 187 : 170
+                this.velocity.x += (loc.x - cent.x) / divForce
+                this.velocity.y += (loc.y - cent.y) / divForce
+              }
+            }
         if (room.gameMode === 'tdm' && this.type !== 'food') { 
             let loc = { x: this.x, y: this.y, };
             if (
@@ -2853,15 +2919,16 @@ class Entity {
                 (this.team !== -2 && room.isIn('bap2', loc)) ||
                 (this.team !== -3 && room.isIn('bap3', loc)) ||
                 (this.team !== -4 && room.isIn('bap4', loc)) ||
-                (this.team !== -5 && room.isIn('bap5', loc))
+                (this.team !== -5 && room.isIn('bap5', loc)) ||
+                (room.isIn('dead', loc))
             ) { this.kill(); }
         }
-        /*if (this.team === -1 || this.team === -2 || this.team === -3 || this.team === -4 || this.team === -5) {
+        if (this.team === -1 || this.team === -2 || this.team === -3 || this.team === -4 || this.team === -5) {
             let loc = { x: this.x, y: this.y, };
             if (room.isIn('ctf1', loc) || room.isIn('ctf2', loc) || room.isIn('ctf3', loc) || room.isIn('ctf4', loc) || room.isIn('ctf5', loc) || room.isIn('ctfX', loc)) {
-                room.repIsIn('ctf' + (this.team * -1), loc);
+                room.repIsIn('ctf' + (-this.team), loc);
             }
-        }*/
+        }
         if (this.type === 'food' || this.type === 'bullet' || this.type === 'trap') { 
             let loc = { x: this.x, y: this.y, };
             if (room.isIn('watr', loc)) {this.health.amount -= 0.1}
@@ -3689,7 +3756,7 @@ const sockets = (() => {
                         case 1: given = 'autofire'; break;
                         case 2: given = 'override'; break;
                         case 3: given = 'godmode'; break;
-                        // Kick if it sent us shit.
+                        // Kick if it sent us crap.
                         default: socket.kick('Bad toggle.'); return 1;
                         }
                     } else {
@@ -3698,7 +3765,7 @@ const sockets = (() => {
                         case 1: given = 'autofire'; break;
                         case 2: given = 'override'; break;
                         case 3: break;
-                        // Kick if it sent us shit.
+                        // Kick if it sent us crap.
                         default: socket.kick('Bad toggle.'); return 1;
                         }
                     }
