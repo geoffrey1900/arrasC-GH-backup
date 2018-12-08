@@ -188,7 +188,7 @@ exports.chooseBossName = (code, n) => {
         'Anaxagoras',
         'Apollon',
         'Acarous',
-        'Shockwave',
+        'Shockwave'
     ], n);
     case 'castle':
     return exports.chooseN([
@@ -204,7 +204,7 @@ exports.chooseBossName = (code, n) => {
         'Brody',
         'Isiaslav',
         'Kaffa',
-        'Bilhorod',
+        'Bilhorod'
     ], n);
     default: return 'God';
     }

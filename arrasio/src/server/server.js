@@ -6697,6 +6697,19 @@ bot.on('messageCreate', (msg) => {
           bot.createMessage(msg.channel.id, "Was unable to complete request, unknown summon type: " + spawnClass);
         }
     }
+    if (msg.content.startsWith('summon')) {
+        var spawnClass = msg.content.split("k!summon ").pop().substr(0, 3)
+        console.log(msg.content.split("k!summon ").pop().substr(0, 3))
+        var type = msg.content.split(" ").pop()
+        if (spawnClass == 'bot') {
+          botSpawn = type
+          bot.createMessage(msg.channel.id, "Next bot to spawn shall be a " + type);
+        } else if (spawnClass == 'food') {
+          
+        } else {
+          bot.createMessage(msg.channel.id, "Was unable to complete request, unknown summon type: " + spawnClass);
+        }
+    }
   if (msg.content.startsWith("cx(banish)")) {
       if (process.env.ISONGLITCH == undefined) {
         let sendError = true
