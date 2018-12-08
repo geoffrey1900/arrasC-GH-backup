@@ -364,7 +364,7 @@ form {
     position: absolute !important;
     top: 100;
     left: 100;
-    opacity: 10;
+    opacity: 0.1;
 }
 
 input [type="image"]:focus{
@@ -376,4 +376,15 @@ input [type="image"]:focus{
 *:focus {
  outline: 1px solid transparent;
  border-style: none;
+}
+
+code {
+    background: #556;
+    padding: 1px;
+    font-family: Consolas,Liberation Mono,Menlo,Courier,monospace;
+    font-size: 14px;
+    line-height: 16px;
+    background-color: #202225;
+    border-color: #36393f;
+    color: #dcddde;
 }

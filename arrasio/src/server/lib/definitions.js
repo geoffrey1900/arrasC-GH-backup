@@ -457,10 +457,30 @@ exports.egg = {
     },
     DRAW_HEALTH: false,
 };
-
+exports.greenbigPentagon = {
+    PARENT: [exports.food],
+    FOOD: {
+        LEVEL: 4,
+    },
+    LABEL: 'Shiny Beta Pentagon',
+    VALUE: 180000,
+    SHAPE: 5,
+    SIZE: 30,
+    COLOR: 14,
+    BODY: {
+        DAMAGE: 9,
+        DENSITY: 12,
+        HEALTH: 1000,
+        RESIST: Math.pow(1.25, 2),
+        SHIELD: 400,
+        REGEN: 0.4,
+    },
+    DRAW_HEALTH: true,
+    GIVE_KILL_MESSAGE: true,
+};
 exports.greenpentagon = {
     PARENT: [exports.food],
-    LABEL: 'Pentagon',
+    LABEL: 'Shiny Pentagon',
     VALUE: 30000,
     SHAPE: 5,
     SIZE: 16,
@@ -476,7 +496,7 @@ exports.greenpentagon = {
 };
 exports.greentriangle = {
     PARENT: [exports.food],
-    LABEL: 'Triangle',
+    LABEL: 'Shiny Triangle',
     VALUE: 7000,
     SHAPE: 3,
     SIZE: 9,
@@ -492,7 +512,7 @@ exports.greentriangle = {
 };
 exports.greensquare = {
     PARENT: [exports.food],
-    LABEL: 'Square',
+    LABEL: 'Shiny Square',
     VALUE: 2000,
     SHAPE: 4,
     SIZE: 10,
