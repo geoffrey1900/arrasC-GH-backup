@@ -97,33 +97,6 @@ exports.chooseChance = (...arg) => {
 
 exports.chooseBotName = () => {
     return exports.choose([
-        'Alice',
-        'Bob',
-        'Carmen',
-        'David',
-        'Edith',
-        'Egg',
-        'Freddy',
-        'Gustav',
-        'Helga',
-        'Janet',
-        'Lorenzo',
-        'Mary',
-        'Nora',
-        'Olivia',
-        'Peter',
-        'Queen',
-        'Roger',
-        'Suzanne',
-        'Tommy',
-        'Ursula',
-        'Vincent',
-        'Wilhelm',
-        'Xerxes',
-        'Yvonne',
-        'Zachary',
-        'Alpha',
-        'Bravo',
         'Charlie',
         'Delta',
         'Echo',
@@ -167,9 +140,10 @@ exports.chooseBotName = () => {
         '#1 person',
         'destoryer', 
       'memes are good for u',
-      'happy Halloween',//change this depending on the season
+      'happy Christmas',//change this depending on the season
       'Ghost',
-      'N0ob',*/
+      'N0ob',
+      '🌌',*/
     ]); 
 };
 

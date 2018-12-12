@@ -29,7 +29,7 @@
   "ROOM_SETUP": [
     [ "bas1", "bas1", "norm", "norm", "norm", "norm", "fore", "fore", "fore", "watr", "prti", "fore", "fore", "fore", "norm", "norm", "norm", "norm", "bas2", "bas2" ],
     [ "bas1", "norm", "norm", "norm", "norm", "norm", "fore", "fore", "fore", "watr", "fore", "fore", "fore", "fore", "norm", "norm", "norm", "norm", "norm", "bas2" ],
-    [ "norm", "norm", "norm", "norm", "norm", "norm", "fore", "fore", "fore", "fore", "watr", "fore", "fore", "fore", "norm", "norm", "norm", "norm", "norm", "norm" ],
+    [ "norm", "norm", "movu", "movu", "movu", "norm", "fore", "fore", "fore", "fore", "watr", "fore", "fore", "fore", "norm", "norm", "norm", "norm", "norm", "norm" ],
     [ "norm", "norm", "norm", "heal", "norm", "norm", "fore", "fore", "fore", "watr", "watr", "fore", "fore", "fore", "norm", "norm", "heal", "norm", "norm", "norm" ],
     [ "norm", "norm", "norm", "norm", "norm", "norm", "fore", "fore", "watr", "fore", "watr", "fore", "fore", "fore", "norm", "norm", "norm", "norm", "norm", "norm" ],
     [ "norm", "norm", "norm", "norm", "norm", "norm", "fore", "fore", "fore", "fore", "watr", "watr", "fore", "fore", "norm", "norm", "norm", "norm", "norm", "norm" ],
@@ -50,7 +50,7 @@
   ],
   "DAMAGE_CONSTANT": 0.6,
   "KNOCKBACK_CONSTANT": 1,
-  "ROOM_BOUND_FORCE": 0.005,
+  "ROOM_BOUND_FORCE": 0.0008,
   "FOOD": [
     0,
     0.75,
@@ -59,11 +59,11 @@
     0,
     0,
     0,
-    0.9,
-    0.45,
-    0.28,
-    0.23,
-    0.02
+    0.1,
+    0.25,
+    0.42,
+    0.53,
+    0.72
   ],
   "FOOD_NEST": [
     0, 
@@ -73,11 +73,11 @@
     0.23,
     0.02,
     0,
-    0.9,
-    0.45,
-    0.28,
-    0.23,
-    0.02
+    0.1,
+    0.15,
+    0.32,
+    0.43,
+    0.62
   ],
   "MAX_SKILL": 9,
   "SOFT_MAX_SKILL": 0.59,
@@ -93,6 +93,6 @@
   "MIN_SPEED": 0.001,
   "FOOD_AMOUNT": 0, 
   "SKILL_BOOST": 15,
-  "BOTS": 5, 
+  "BOTS": 10, 
   "GLASS_HEALTH_FACTOR": 2.5
 }

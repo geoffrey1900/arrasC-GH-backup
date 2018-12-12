@@ -7,7 +7,7 @@
     "start": "gulp run"
   },
   "author": "Anthony Hengst",
-  "license": "GNU GPL3",
+  "license" : "GNU GPL-3.0 PL3",
   "contributors": [
     "nepphhhh <nephdev@gmail.com>"
   ],

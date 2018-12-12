@@ -348,6 +348,12 @@ function getZoneColor(cell, real) {
 			case 'movr':
 			case 'movd':
 			case 'movu':
+      case 'movi':
+      case 'movo':
+      case 'mvur':
+      case 'mvul':
+      case 'mvdl':
+      case 'mvdr':
             return color.vlgrey
         default:
             return (real) ? color.white : color.lgrey;

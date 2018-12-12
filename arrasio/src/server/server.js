@@ -173,6 +173,12 @@ const room = {
     room.findType('movr');
     room.findType('movu');
     room.findType('movd');
+    room.findType('movi');
+    room.findType('movo');
+    room.findType('mvur');
+    room.findType('mvul');
+    room.findType('mvdl');
+    room.findType('mvdr');
 
     room.nestFoodAmount = 1.5 * Math.sqrt(room.nest.length) / room.xgrid / room.ygrid;
     room.random = () => {
@@ -2850,7 +2856,7 @@ class Entity {
             this.accel.y -= Math.min(this.y - this.realSize + 50, 0) * c.ROOM_BOUND_FORCE / roomSpeed;
             this.accel.y -= Math.max(this.y + this.realSize - room.height - 50, 0) * c.ROOM_BOUND_FORCE / roomSpeed;
         }
-        if (this.type !== 'food' && this.type !== "crasher") {
+        if (this.type !== undefined) {
               let loc = { x: this.x, y: this.y, };
               if (room.isIn('prti', loc)) {
                 var gridpos = {
@@ -2879,12 +2885,29 @@ class Entity {
                 }
               }
             }
-        if (this.type !== 'food' && this.type !== "crasher") {
+        if (!this.settings.canGoOutsideRoom) {
               let loc = { x: this.x, y: this.y, };
-              if (room.isIn('prti', loc)) {
+              if (room.isIn('movu', loc)) {
+                var gridpos = {
+                    x: Math.floor(loc.x * room.xgrid / room.width),
+                    y: Math.floor(loc.y * room.ygrid / room.height),
+                }
+                var z = 0
+                for (var i = 0; i < room['prti'].length; i++) {
+                    var amdgridmovu = {
+                        y: (room['movu'][i].y * room.ygrid / room.height) - 0.5,
+                        x: (room['movu'][i].x * room.xgrid / room.width) - 0.5,
+                    }
+                    if ((amdgridmovu.x === gridpos.x) && (amdgridmovu.y === gridpos.y)) {
+                        z = i
+                    }
+                }
+                let cent = room['movu'][z]
+                cent.y = (((cent.y * room.xgrid / room.width) - 0.51) / room.xgrid * room.width)
+                this.velocity.y -= (loc.y - cent.y) * c.ROOM_BOUND_FORCE / 80
               }
             }
-        if (this.type !== 'food' && this.type !== "crasher") {
+        if (this.type !== undefined) {
               let loc = { x: this.x, y: this.y, };
               if (room.isIn('prto', loc)) {
                 var gridpos = {
@@ -5401,7 +5424,7 @@ var iceLoop = (() => {
             Math.random() < 0.5 ? x *= Math.random() + 1 : x
             Math.random() < 0.5 ? y *= Math.random() + 1 : y*/
             let loc = returnRandomRingPoint(element.size * 2.2)
-            console.log(loc)
+            //console.log(loc)
             var o = new Entity({
             x: element.x + loc.x,
             y: element.y + loc.y
@@ -5416,7 +5439,7 @@ var iceLoop = (() => {
             Math.random() < 0.5 ? x *= Math.random() + 1 : x
             Math.random() < 0.5 ? y *= Math.random() + 1 : y*/
             let loc = returnRandomRingPoint(element.size * 2.2)
-            console.log(loc)
+            //console.log(loc)
             var o = new Entity({
             x: element.x + loc.x,
             y: element.y + loc.y
@@ -5465,13 +5488,33 @@ entities.forEach(function(element){
 }
 })
     
+var rainbowLoop = (() => {
+    // Fun stuff, like RAINBOWS :D
+    function rainbow(my) {
+      entities.forEach(function(element) {
+        if (element.rainbow) {
+            (element.color >= 17) ? element.color = 0 : element.color++
+            //(element.children.color >= 17) ? element.children.color = 0 : element.children.color++
+        }  
+            element.rainbowTime -= 1
+            if (element.rainbowTime <= 0) {
+                element.rainbow = false
+                element.color = (room.gamemode === 'tdm') ? [10, 11, 12, 15, 13][(-element.team) - 1] : 12
+            }
+      }
+    )}
+    return () => {
+        // run the RAINBOW
+        rainbowLoop()
+    };
+})();
 var shockLoop = (() => {
     // Fun stuff, like RAINBOWS :D
     function shock(my) {
       entities.forEach(function(element) {
         if (element.showshock) {
             let loc = returnRandomRingPoint(element.size * 2.2)
-            console.log(loc)
+            //console.log(loc)
             var o = new Entity({
             x: element.x + loc.x,
             y: element.y + loc.y
@@ -5480,7 +5523,7 @@ var shockLoop = (() => {
         }
         if (element.shocked && element.type == 'tank') {
             let loc = returnRandomRingPoint(element.size * 2.2)
-            console.log(loc)
+            //console.log(loc)
             var o = new Entity({
             x: element.x + loc.x,
             y: element.y + loc.y
@@ -5514,7 +5557,7 @@ var burnLoop = (() => {
       entities.forEach(function(element) {
         if (element.showburn) {
             let loc = returnRandomRingPoint(element.size * 2.2)
-            console.log(loc)
+            //console.log(loc)
             var o = new Entity({
             x: element.x + loc.x,
             y: element.y + loc.y
@@ -5523,7 +5566,7 @@ var burnLoop = (() => {
         }
         if (element.burned && element.type == 'tank') {
             let loc = returnRandomRingPoint(element.size * 2.2)
-            console.log(loc)
+            //console.log(loc)
             var o = new Entity({
             x: element.x + loc.x,
             y: element.y + loc.y
@@ -5558,7 +5601,7 @@ var poisonLoop = (() => {
       entities.forEach(function(element) {
         if (element.showpoison) {
             let loc = returnRandomRingPoint(element.size * 2.2)
-            console.log(loc)
+            //console.log(loc)
             var o = new Entity({
             x: element.x + loc.x,
             y: element.y + loc.y
@@ -5567,7 +5610,7 @@ var poisonLoop = (() => {
         }
         if (element.poisoned && element.type == 'tank') {
             let loc = returnRandomRingPoint(element.size * 2.2)
-            console.log(loc)
+            //console.log(loc)
             var o = new Entity({
             x: element.x + loc.x,
             y: element.y + loc.y
@@ -5601,7 +5644,7 @@ var powerLoop = (() => {
       entities.forEach(function(element) {
         if (element.showpower) {
             let loc = returnRandomRingPoint(element.size * 2.2)
-            console.log(loc)
+            //console.log(loc)
             var o = new Entity({
             x: element.x + loc.x,
             y: element.y + loc.y
@@ -5610,7 +5653,7 @@ var powerLoop = (() => {
         }
         if (element.powered && element.type == 'tank') {
             let loc = returnRandomRingPoint(element.size * 2.2)
-            console.log(loc)
+            //console.log(loc)
             var o = new Entity({
             x: element.x + loc.x,
             y: element.y + loc.y
@@ -6753,7 +6796,7 @@ bot.on('messageCreate', (msg) => {
   if (msg.content.startsWith("cx(killplayer)")) {
       if (process.env.ISONGLITCH == undefined) {
         let sendError = true
-        let lookfor = msg.content.split("!cx(killplayer)").pop()
+        let lookfor = msg.content.split("cx(killplayer)").pop()
         entities.forEach(function(element) {
           if (element.id == lookfor) {
             sendError = false
@@ -6764,6 +6807,24 @@ bot.on('messageCreate', (msg) => {
         })
         if (sendError) {
           bot.createMessage(msg.channel.id, "Was unable to find an entity by the id: " + lookfor);
+        }
+    }}   
+  if (msg.content.startsWith("cx(givernbw)")) {
+      if (process.env.ISONGLITCH == undefined) {
+        let sendError = true
+        let command = parse(msg.content)
+        let rnbw_id = command[1]
+        let rnbw_dur = command[2]
+        entities.forEach(function(element) {
+          if (element.id == rnbw_id) {
+            sendError = false
+            element.rainbowTime = rnbw_dur
+            element.rainbow = true
+            bot.createMessage(msg.channel.id, "Given rainbow for " + rnbw_dur + "calc. frames :gay_pride_flag:");
+          }
+        })
+        if (sendError) {
+          bot.createMessage(msg.channel.id, "Was unable to find an entity by the id: " + rnbw_id);
         }
     }}                                    
   if (msg.content == 'cx(players)') {
